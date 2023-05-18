@@ -1,0 +1,43 @@
+﻿@model WebApplication1.Models.Product
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>GetById</title>
+
+</head>
+<body>
+    <div> 
+        <h1>
+            Product Name : @Model.ProductName
+        </h1>
+        <h2>
+            Category Name : @Model.CategoryName
+        </h2>
+        <h3>
+            Price : @Model.Price
+        </h3>
+        <label>Id : @Model.Id</label>
+        <hr />
+        <table>
+            <tr>
+                <th>Id</th>
+                <th>Product Name</th>
+                <th>CategoryName</th>
+                <th>Price</th>
+            </tr>
+            <tr>
+                <td>@Model.Id</td>
+                <td>@Model.ProductName</td>
+                <td>@Model.CategoryName</td>
+                <td>@Model.Price</td>
+            </tr>
+        </table>
+    </div>
+</body>
+</html>

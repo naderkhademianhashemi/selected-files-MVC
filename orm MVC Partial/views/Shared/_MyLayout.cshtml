@@ -1,0 +1,27 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <meta name="description" content="@ViewBag.Description" />
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="well">
+            <h1 class="text-center">
+                My Website
+            </h1>
+        </div>
+        <div class="row">
+            @RenderBody()
+        </div>
+        <div class="well">
+            Website Footer
+        </div>
+    </div>
+</body>
+</html>

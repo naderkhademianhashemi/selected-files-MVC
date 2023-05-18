@@ -1,0 +1,58 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<hr />
+<button class="btn btn-warning" onclick="setCookie('id', '101');">
+    <i class="fa fa-coffee"></i>
+    Add New Cookie
+</button>
+<button class="btn btn-default" onclick="showCookie('id');">
+    <i class="fa fa-coffee"></i>
+    Read Cookie
+</button>
+<hr />
+<button onclick="setLocalStorage()" class="btn btn-primary">
+    Set localStorage
+</button>
+<button onclick="getLocalStorage()" class="btn btn-danger">
+    Get localStorage
+</button>
+<button onclick="setSessionStorage()" class="btn btn-default">
+    Set sessionStorage
+</button>
+<button onclick="getSessionStorage()" class="btn btn-warning">
+    Get sessionStorage
+</button>
+
+<script>
+    function setCookie(name, value) {
+        
+        $.cookie(name, value, { path: "/" });
+    }
+    function showCookie(name) {
+        var value = $.cookie(name);
+        alert(value);
+    }
+    function setLocalStorage() {
+        localStorage.FirstName = "ali";
+    }
+
+    function getLocalStorage() {
+        var value = localStorage.FirstName;
+        alert(value);
+    }
+    function setSessionStorage()
+    {
+        sessionStorage.FirstName = "ali";
+    }
+
+    function getSessionStorage()
+    {
+        var value = sessionStorage.FirstName;
+        alert(value);
+    }
+</script>

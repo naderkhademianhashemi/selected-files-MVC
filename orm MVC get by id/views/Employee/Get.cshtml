@@ -1,0 +1,26 @@
+﻿@model WebApplication1.Models.Employee
+    @{
+        Layout = null;
+    }
+
+    <!DOCTYPE html>
+
+    <html>
+    <head>
+        <meta name="viewport" content="width=device-width" />
+        <title>Get</title>
+        <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    </head>
+    <body>
+        <div class="well">
+            Employee Id : <label class="label label-info">@Model.EmployeeId</label>
+            <hr />
+            First Name : <label class="label label-warning">@Model.FirstName</label>
+            <hr />
+            Last Name : <label class="label label-danger">@Model.LastName</label>
+            <hr />
+            National Code : <label class="label label-primary">@Model.NationalCode</label>
+        </div>
+       
+    </body>
+</html>

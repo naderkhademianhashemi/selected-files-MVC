@@ -1,0 +1,18 @@
+﻿@model List<ProductViewModel>
+@{
+    ViewBag.Title = "ShowProductList";
+    Layout = null;
+}
+
+<div class="row">
+    @foreach (var item in Model)
+    {
+        <div class="col-md-3">
+            <img src="@item.ThumbnailUrl" class="img-responsive img-thumbnail"/>
+            <h3>
+                <a href="/Product/Details/@item.Id">@item.ProductName</a>
+            </h3>
+        </div>
+    }
+</div>
+

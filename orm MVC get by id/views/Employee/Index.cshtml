@@ -1,0 +1,49 @@
+﻿@model List<WebApplication1.Models.Employee>
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+</head>
+<body>
+    <div> 
+        <ul class="nav navbar-nav">
+            <li>@Html.ActionLink("محصول", "GetById/1", "Product")</li>
+            <li>@Html.ActionLink("کارمند", "Index", "Employee")</li>
+            <li>@Html.ActionLink("کارمند", "Get", "Employee")</li>
+        </ul>
+
+
+        <h1>
+            Employee List
+        </h1>
+        <table class="table table-striped table-bordered">
+            <tr>
+                <th>Employee Id</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>NationalCode</th>
+                <th></th>
+            </tr>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.EmployeeId</td>
+                    <td>@item.FirstName</td>
+                    <td>@item.LastName</td>
+                    <td>@item.NationalCode</td>
+                    <td>
+                        <a href="/Employee/Get/@item.EmployeeId" class="btn btn-danger btn-sm">View</a>
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+</body>
+</html>

@@ -1,0 +1,183 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+<style>
+    .center {
+        margin-top: 50px;
+    }
+
+    .modal-header {
+        padding-bottom: 5px;
+    }
+
+    .modal-footer {
+        padding: 0;
+    }
+
+        .modal-footer .btn-group button {
+            height: 40px;
+            border-top-left-radius: 0;
+            border-top-right-radius: 0;
+            border: none;
+            border-right: 1px solid #ddd;
+        }
+
+        .modal-footer .btn-group:last-child > button {
+            border-right: 0;
+        }
+</style>
+<h2>Index</h2>
+<button id="loadCategory" class="btn btn-info" onclick="showCategories(this)">
+    <i class="fa fa-spin fa-spinner hidden loader"></i>
+    Show All Category
+</button>
+<button class="btn btn-danger" data-toggle="modal" data-target="#squarespaceModal">
+    <i class="fa fa-plus"></i>
+    Add New Category
+</button>
+<hr />
+<button class="btn btn-warning" onclick="setCookie('id', '101');">
+    <i class="fa fa-coffee"></i>
+    Add New Cookie
+</button>
+<button class="btn btn-default" onclick="showCookie('id');">
+    <i class="fa fa-coffee"></i>
+    Read Cookie
+</button>
+<hr />
+<button onclick="setLocalStorage()" class="btn btn-primary">
+    Set localStorage
+</button>
+<button onclick="getLocalStorage()" class="btn btn-danger">
+    Get localStorage
+</button>
+<button onclick="setSessionStorage()" class="btn btn-default">
+    Set sessionStorage
+</button>
+<button onclick="getSessionStorage()" class="btn btn-warning">
+    Get sessionStorage
+</button>
+<hr />
+@Html.FADTextArea("txtAddress")
+<table id="categoryTable" class="table table-striped table-bordered">
+    <thead>
+        <tr>
+            <th>Category Id</th>
+            <th>Category Name</th>
+            <th>#</th>
+        </tr>
+    </thead>
+    <tbody></tbody>
+    
+</table>
+<!-- line modal -->
+<div class="modal fade" id="squarespaceModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                <h3 class="modal-title" id="lineModalLabel">Add New Category</h3>
+            </div>
+            <div class="modal-body">
+
+                <!-- content goes here -->
+                <form>
+                    <div class="form-group">
+                        <label>Category Name</label>
+                        <input type="text" class="form-control" id="categoryName">
+                    </div>
+                    <div class="form-group">
+                        <label>Description</label>
+                        <textarea id="description" class="form-control" rows="5"></textarea>
+                    </div>
+                    <button type="button" class="btn btn-default" onclick="addCategory()">Save</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function addCategory() {
+        var title = $("#categoryName").val();
+        var description = $("#description").val();
+
+        var url = "/Category/AddCategory";
+
+        $.post(url, { categoryName: title, description: description }, function (result) {
+            if (result.IsSuccess) {
+                toastr.success('با موفقیت ذخیره شد');
+                $("#squarespaceModal").modal('hide');
+                $("#loadCategory").click();
+            }
+            else {
+                //alert('failed');
+                toastr.success(result.Message);
+            }
+        })
+
+    }
+    function showCategories(el) {
+        $("#categoryTable tbody tr").remove();
+        $(".loader").removeClass('hidden');
+        $(el).attr('disabled', 'disabled');
+        var url = "/Category/GetAllCategory";
+        $.get(url, null, function (result) {
+            console.log(result);
+            //alert('ajax succ...');
+            for (var i = 0; i < result.length; i++) {
+                var tr = '<tr>';
+                tr += '<td>' + result[i].CategoryId + '</td>';
+                tr += '<td>' + result[i].CategoryName + '</td>';
+                tr += '<td><a class="btn btn-danger btn-sm" onclick="removeItem(this, ' + result[i].CategoryId +
+                    ')"><i class="glyphicon glyphicon-remove"></i></a></td>';
+                tr += '</tr>';
+                $("#categoryTable tbody").append(tr);
+            }
+            $(".loader").addClass('hidden');
+            $(el).removeAttr('disabled');
+        });
+    }
+    function removeItem(el, id) {
+        var confirmResult = confirm("رکورد حذف گردد ؟")
+        if (confirmResult) {
+            var url = "/Category/RemoveCategory";
+            $.get(url, { id: id }, function (result) {
+                if (result.IsSuccess) {
+                    $(el).parents('tr').first().remove();
+                    toastr.success('رکورد حذف شد');
+                }
+                else {
+                    toastr.error(result.Message);
+                }
+            })
+        }
+    }
+    function setCookie(name, value) {
+        
+        $.cookie(name, value, { path: "/" });
+    }
+    function showCookie(name) {
+        var value = $.cookie(name);
+        alert(value);
+    }
+    function setLocalStorage() {
+        localStorage.FirstName = "ali";
+    }
+
+    function getLocalStorage() {
+        var value = localStorage.FirstName;
+        alert(value);
+    }
+    function setSessionStorage()
+    {
+        sessionStorage.FirstName = "ali";
+    }
+
+    function getSessionStorage()
+    {
+        var value = sessionStorage.FirstName;
+        alert(value);
+    }
+</script>
